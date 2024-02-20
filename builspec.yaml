@@ -1,7 +1,36 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - curl -fsSL https://releases.hashicorp.com/terraform/1.1.0/terraform_1.1.0_linux_amd64.zip -o terraform.zip
+      - unzip terraform.zip
+      - mv terraform /usr/local/bin/
+      - terraform --version
+  pre_build:
+    commands:
+      - echo "Pre-build phase"
   build:
     commands:
-      - echo Entered the build phase...
-      - echo Build started on `date`
+      #- echo Entered the build phase...
+      #- echo Build started on `date`
+      # Initialize Terraform (use appropriate version)
+      - terraform --version
+      - terraform init
+      # Plan the Terraform changes (without applying)
+      #- terraform plan -out=tfplan
+  post_build:
+    commands:
+      # Show the plan
+      #- terraform show tfplan
+      # Optionally, you can parse the output to determine the state programmatically
+      # Example: Check if there are any changes proposed by Terraform
+      #- |
+       # if terraform show -json tfplan | jq '.resource_changes | length' | grep -Eq '^[0-9]+$'; then
+         #   echo "There are changes proposed by Terraform."
+            # You can trigger further actions here if needed
+        #else
+        #    echo "No changes proposed by Terraform."
+        #fi
