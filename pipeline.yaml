@@ -60,7 +60,7 @@ Resources:
         - Arn
       Source:
         Type: GITHUB
-        Loaction: 'https://github.com/NavjitK/github-aws-trigger.git'
+        Location: 'https://github.com/NavjitK/github-aws-trigger.git'
         BuildSpec: builspec.yaml
         Auth:
           Type: OAUTH
@@ -76,5 +76,5 @@ Resources:
               Pattern: !Sub ^refs/heads/main$
       Environment:
         Type: LINUX_CONTAINER
-        ComputeType: BUILD_GENERAL_SMALL
-        Image: 'aws/codebuildId/ubuntu-base:14.04'
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: 'aws/codebuild/ubuntu-base:14.04'
